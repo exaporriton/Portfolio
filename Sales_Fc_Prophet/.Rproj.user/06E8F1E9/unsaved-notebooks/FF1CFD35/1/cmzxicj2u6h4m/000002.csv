@@ -1,0 +1,3 @@
+"0","ds <- ga_sales$Date"
+"0","y <- ga_sales$Sales"
+"0","df <- data.frame(ds,y)"
