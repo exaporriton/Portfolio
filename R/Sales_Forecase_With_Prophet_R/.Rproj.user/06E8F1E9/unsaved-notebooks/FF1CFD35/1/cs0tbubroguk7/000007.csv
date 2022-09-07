@@ -1,0 +1,1 @@
+"0","qplot(Date,Sales, data = ga_sales)"

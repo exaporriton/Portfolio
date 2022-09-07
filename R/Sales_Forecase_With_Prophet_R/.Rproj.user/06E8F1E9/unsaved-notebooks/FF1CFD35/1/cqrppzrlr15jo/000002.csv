@@ -1,0 +1,5 @@
+"0","m <- prophet(daily.seasonality=""auto"")
+m <- fit.prophet(m,df)
+"
+"2","Disabling daily seasonality. Run prophet with daily.seasonality=TRUE to override this.
+"

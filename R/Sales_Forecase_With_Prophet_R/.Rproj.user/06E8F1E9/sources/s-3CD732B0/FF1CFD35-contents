@@ -1,0 +1,112 @@
+# Load Packages
+```{r}
+library("ggalluvial")
+library("plotrix")
+library("emmeans")
+library ("car")
+library ("carData")
+library("ggplot2")
+library("lubridate")
+library("skimr")
+library("psych")
+library("Hmisc")
+library("corrplot")
+library("naniar")
+library("GGally")
+library("rmarkdown")
+library("dplyr")
+library ("tidyr")
+library("readxl")
+library("broom") # tidying and augmenting model output
+library ("car")
+library ("carData")
+library("emmeans")
+library("readr")
+library("caTools")
+library("lmtest")
+library("ResourceSelection")
+library("sandwich")
+library("tidyverse")
+library("jtools") # summarizing regression output, effect_plot
+library("margins") # marginal effects
+library("ggfortify") # auto_plot function
+library("slider")
+library("skimr")
+```
+
+# Load the PROPHET Package
+```{r}
+library("prophet")
+```
+
+
+
+
+#PLOT
+```{r}
+qplot(Date,Sales, data = ga_sales)
+attach(Actual_Sales)
+```
+
+#Data
+```{r}
+ds <- Actual_Sales$Date
+y <- Actual_Sales$Sales
+df <- data.frame(ds,y)
+```
+
+
+#Forecasting Mode
+```{r}
+m <- prophet(daily.seasonality="auto")
+m <- fit.prophet(m,df)
+?prophet
+```
+
+#Prediction
+```{r}
+future <- make_future_dataframe(m, periods = 104)
+forecast <- predict (m, future)
+```
+
+
+#Plot forecast
+```{r}
+plot(m, forecast)
+dyplot.prophet(m, forecast)
+#export <- forecast$yhat
+#export <- data.frame(export)
+#write.csv(export, "no_regressors_traffic.csv")
+```
+
+# Forecast Components
+```{r}
+prophet_plot_components(m, forecast)
+```
+
+#Model Performance (Adjusted R^2 = 0.6997 and the Median = -219)
+```{r}
+pred <- forecast$yhat[1:1980]
+actual_sales <- df[,2]
+#actual_sales <- df[sales_df$Sales]
+plot(actual_sales, pred) 
+abline(lm(pred~actual_sales))
+#summary(pred~actual_sales) <- this didn't work and for this reason we have the line below
+model1<-lm(pred ~ actual_sales) # <- we are looking at the Adjusted R^2 and the Median.
+summary(model1)
+
+glimpse(Actual_Sales)
+glimpse(forecast)
+
+plot (Actual_Sales$Sales, forecast$yhat[1:1980])
+```
+
+
+
+
+
+
+
+
+
+
