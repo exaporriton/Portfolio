@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: test-functions
+Version: 0.1
+Summary: custom business functions for Contoso, Inc.
+Home-page: http://contoso.com
+Author: Jeremy Peach
+Author-email: jeremy@contoso.com
+License: MIT
